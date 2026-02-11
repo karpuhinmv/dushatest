@@ -293,71 +293,7 @@
             margin-bottom: 10px;
         }
 
-        /* ======= КАТАЛОГ С ФОТОГРАФИЯМИ ======= */
-        .catalog {
-            padding: 40px 0;
-        }
-
-        .catalog-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
-        }
-
-        .catalog-item {
-            padding: 25px 15px;
-            text-align: center;
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .catalog-item:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        /* Контейнер для фото */
-        .catalog-image {
-            width: 160px;
-            height: 160px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 15px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            overflow: hidden;
-            border: 1px solid var(--glass-border);
-        }
-
-        .catalog-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        .catalog-item:hover .catalog-image img {
-            transform: scale(1.05);
-        }
-
-        .catalog-item h3 {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            width: 100%;
-        }
-
-        .catalog-price {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #fff;
-            margin: 10px 0 5px;
-            background: rgba(0,0,0,0.3);
-            padding: 5px 15px;
-            border-radius: 50px;
-        }
+        /* ======= СТИЛИ КАТАЛОГА БЫЛИ УДАЛЕНЫ ======= */
         
         .contacts {
             padding: 40px 0;
@@ -452,7 +388,6 @@
             .hero h2 { font-size: 2rem; }
             .section-title { font-size: 1.8rem; }
             .advantages-grid { grid-template-columns: repeat(2, 1fr); }
-            .catalog-grid { grid-template-columns: repeat(2, 1fr); }
         }
         
         @media (max-width: 768px) {
@@ -473,7 +408,6 @@
             .advantages { padding: 30px 0; }
             .advantages-grid { grid-template-columns: 1fr; gap: 15px; }
             .services-grid { grid-template-columns: 1fr; gap: 15px; }
-            .catalog-grid { grid-template-columns: 1fr; gap: 15px; }
             .contact-buttons { flex-direction: column; width: 100%; }
             .contact-buttons .btn { width: 100%; margin-bottom: 10px; }
             .footer-content { gap: 20px; }
@@ -490,7 +424,6 @@
             .social-links a { width: 40px; height: 40px; font-size: 1.1rem; }
             .advantage-icon { font-size: 2.2rem; }
             .advantage-card h3 { font-size: 1.2rem; }
-            .catalog-image { width: 130px; height: 130px; }
         }
         
         @media (max-width: 360px) {
@@ -527,8 +460,12 @@
             .btn:hover { transform: none; }
             .advantage-card:hover { transform: none; }
             .service-item:hover { background: none; }
-            .catalog-item:hover { transform: none; background: none; }
-            .catalog-item:hover .catalog-image img { transform: none; }
+        }
+
+        /* Дополнительный стиль для кнопки перехода в каталог */
+        .catalog-button-section .btn {
+            font-size: 1.2rem;
+            padding: 16px 40px;
         }
     </style>
 </head>
@@ -552,7 +489,7 @@
                     <li><a href="#main">Главная</a></li>
                     <li><a href="#advantages">Преимущества</a></li>
                     <li><a href="#services">Услуги</a></li>
-                    <li><a href="#catalog">Каталог</a></li>
+                    <li><a href="catalog.html">Каталог</a></li> <!-- ссылка на отдельную страницу -->
                     <li><a href="#contacts">Контакты</a></li>
                 </ul>
             </nav>
@@ -640,12 +577,13 @@
             </div>
         </section>
         
-        <!-- ========== КАТАЛОГ С ФОТОГРАФИЯМИ ========== -->
-        <section id="catalog" class="catalog">
+        <!-- ======= КНОПКА-ССЫЛКА НА СТРАНИЦУ КАТАЛОГА ======= -->
+        <section class="catalog-button-section" style="padding: 40px 0; text-align: center;">
             <div class="container">
-                <h2 class="section-title fade-in">Каталог ритуальных товаров</h2>
-                <div class="catalog-grid" id="catalogGrid">
-                    <!-- Карточки будут вставлены через JavaScript -->
+                <div class="glass fade-in">
+                    <h2 style="margin-bottom: 20px;">Широкий выбор ритуальных товаров</h2>
+                    <p style="margin-bottom: 30px; font-size: 1.1rem;">Ознакомьтесь с нашим каталогом гробов, венков, памятников и других принадлежностей.</p>
+                    <a href="catalog.html" class="btn" style="font-size: 1.2rem; padding: 16px 40px;">Перейти в каталог</a>
                 </div>
             </div>
         </section>
@@ -703,80 +641,7 @@
     </footer>
 
     <script>
-    // ------------------------------------------------------------
-    //           КАТАЛОГ ТОВАРОВ С ФОТОГРАФИЯМИ
-    // ------------------------------------------------------------
-    const products = [
-        { name: "Гроб деревянный (обивка тканью)", price: "от 8 000 000 ₽", image: "images/zal.jpg" },
-        { name: "Венок похоронный", price: "от 1 200 ₽", image: "images/wreath.jpg" },
-        { name: "Крест металлический", price: "от 2 500 ₽", image: "images/cross.jpg" },
-        { name: "Табличка на могилу (латунь)", price: "от 1 800 ₽", image: "images/tablet.jpg" },
-        { name: "Одежда для усопшего (мужская)", price: "от 4 500 ₽", image: "images/clothes.jpg" },
-        { name: "Ритуальная корзина", price: "от 2 200 ₽", image: "images/basket.jpg" },
-        { name: "Памятник гранитный", price: "от 25 000 ₽", image: "images/monument.jpg" },
-        { name: "Ограда металлическая", price: "от 7 500 ₽", image: "images/fence.jpg" }
-    ];
-
-    function renderCatalog() {
-        const grid = document.getElementById('catalogGrid');
-        if (!grid) return;
-        grid.innerHTML = '';
-        products.forEach((product, index) => {
-            const delayClass = `delay-${(index % 3) + 1}`;
-            const card = document.createElement('div');
-            card.className = `glass catalog-item fade-in ${delayClass}`;
-            
-            const imageDiv = document.createElement('div');
-            imageDiv.className = 'catalog-image';
-            const img = document.createElement('img');
-            img.src = product.image;
-            img.alt = product.name;
-            img.onerror = function() {
-                this.onerror = null;
-                this.style.display = 'none';
-                const icon = document.createElement('i');
-                icon.className = 'fas fa-image';
-                icon.style.fontSize = '3rem';
-                icon.style.color = 'var(--accent-color)';
-                imageDiv.appendChild(icon);
-            };
-            imageDiv.appendChild(img);
-            
-            const title = document.createElement('h3');
-            title.textContent = product.name;
-            
-            const price = document.createElement('div');
-            price.className = 'catalog-price';
-            price.textContent = product.price;
-            
-            const btn = document.createElement('a');
-            btn.href = '#contacts';
-            btn.className = 'btn btn-small';
-            btn.innerHTML = '<i class="fas fa-shopping-cart"></i> Заказать';
-            btn.addEventListener('click', function(e) {
-                e.preventDefault();
-                const contacts = document.querySelector('#contacts');
-                if (contacts) {
-                    window.scrollTo({
-                        top: contacts.offsetTop - 80,
-                        behavior: 'smooth'
-                    });
-                    if (window.innerWidth <= 768) {
-                        nav.classList.remove('active');
-                        document.body.style.overflow = 'auto';
-                    }
-                }
-            });
-            
-            card.appendChild(imageDiv);
-            card.appendChild(title);
-            card.appendChild(price);
-            card.appendChild(btn);
-            grid.appendChild(card);
-        });
-    }
-
-    // Плавная прокрутка для всех якорей
+    // Плавная прокрутка для якорей
     document.querySelectorAll('nav a, .btn[href^="#"]:not(.btn-small)').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             const href = this.getAttribute('href');
@@ -797,22 +662,24 @@
         });
     });
 
-    // ---------- МОБИЛЬНОЕ МЕНЮ (ИСПРАВЛЕНО) ----------
+    // ---------- МОБИЛЬНОЕ МЕНЮ ----------
     const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
     const nav = document.querySelector('nav');
 
-    mobileMenuBtn.addEventListener('click', () => {
-        nav.style.display = '';          // СБРАСЫВАЕМ ИНЛАЙН-СТИЛЬ
-        nav.classList.toggle('active');
-        if (nav.classList.contains('active')) {
-            document.body.style.overflow = 'hidden';
-        } else {
-            document.body.style.overflow = 'auto';
-        }
-    });
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', () => {
+            nav.style.display = '';
+            nav.classList.toggle('active');
+            if (nav.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        });
+    }
 
     document.addEventListener('click', (e) => {
-        if (window.innerWidth <= 768 && nav.classList.contains('active')) {
+        if (window.innerWidth <= 768 && nav && nav.classList.contains('active')) {
             if (!nav.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
                 nav.classList.remove('active');
                 document.body.style.overflow = 'auto';
@@ -821,16 +688,14 @@
     });
 
     window.addEventListener('resize', () => {
-        if (window.innerWidth > 768) {
+        if (window.innerWidth > 768 && nav) {
             nav.classList.remove('active');
             document.body.style.overflow = 'auto';
         }
     });
 
-    // ---------- ИНИЦИАЛИЗАЦИЯ ----------
+    // ---------- АНИМАЦИЯ ПРИ СКРОЛЛЕ ----------
     document.addEventListener('DOMContentLoaded', () => {
-        renderCatalog();
-        
         const observerOptions = { threshold: 0.1 };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
@@ -841,10 +706,7 @@
         }, observerOptions);
         
         document.querySelectorAll('.glass').forEach(el => observer.observe(el));
-        // ВАЖНО: УБРАНА СТРОКА С nav.style.display = 'none'
     });
-
-    document.addEventListener('touchstart', function() {}, {passive: true});
-</script>
+    </script>
 </body>
 </html>
