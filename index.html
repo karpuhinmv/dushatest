@@ -70,7 +70,7 @@
             z-index: 1;
             font-size: 16px;
             text-align: center;
-            min-height: 48px; /* Минимальная высота для удобного нажатия на мобильных */
+            min-height: 48px;
         }
         
         .btn:hover {
@@ -94,6 +94,14 @@
         
         .btn:hover:before {
             opacity: 1;
+        }
+
+        /* Маленькая кнопка для карточек */
+        .btn-small {
+            padding: 8px 20px;
+            font-size: 14px;
+            min-height: 36px;
+            margin-top: 12px;
         }
         
         /* Шапка */
@@ -124,7 +132,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0; /* Чтобы логотип не сжимался на мобильных */
+            flex-shrink: 0;
         }
         
         .logo-icon img {
@@ -168,11 +176,21 @@
             padding: 8px 14px;
             border-radius: 50px;
             font-size: 15px;
-            white-space: nowrap; /* Текст не переносится */
+            white-space: nowrap;
         }
         
         nav a:hover {
             background: var(--glass-bg);
+        }
+        
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 5px;
         }
         
         /* Герой секция */
@@ -282,6 +300,53 @@
             font-size: 1.2rem;
             margin-bottom: 10px;
         }
+
+        /* Каталог товаров */
+        .catalog {
+            padding: 40px 0;
+        }
+
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .catalog-item {
+            padding: 25px 15px;
+            text-align: center;
+            transition: var(--transition);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .catalog-item:hover {
+            transform: translateY(-5px);
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .catalog-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+
+        .catalog-item h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            width: 100%;
+        }
+
+        .catalog-price {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #fff;
+            margin: 10px 0 5px;
+            background: rgba(0,0,0,0.3);
+            padding: 5px 15px;
+            border-radius: 50px;
+        }
         
         /* Контакты */
         .contacts {
@@ -322,7 +387,7 @@
             align-items: center;
             justify-content: center;
             font-size: 1.2rem;
-            flex-shrink: 0; /* Иконка не сжимается */
+            flex-shrink: 0;
         }
         
         .contact-item h4 {
@@ -387,6 +452,10 @@
             .advantages-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
+            
+            .catalog-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
         
         /* Адаптивность для мобильных (горизонтальная ориентация) */
@@ -397,35 +466,48 @@
             }
             
             .header-container {
-                flex-direction: column;
-                gap: 20px;
+                flex-direction: row;
+                justify-content: space-between;
+                gap: 15px;
             }
             
-            /* Навигация на мобильных */
+            /* Мобильное меню */
             nav {
                 width: 100%;
-                justify-content: center;
+                order: 3;
+                margin-top: 15px;
+                display: none;
+            }
+            
+            nav.active {
+                display: block;
             }
             
             nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
+                flex-direction: column;
+                width: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                backdrop-filter: blur(10px);
+                border-radius: 15px;
+                padding: 20px;
                 gap: 10px;
             }
             
             nav a {
-                padding: 10px 15px;
-                font-size: 15px;
+                display: block;
                 text-align: center;
-                background: rgba(255, 255, 255, 0.05);
+                padding: 12px;
+                font-size: 16px;
                 border: 1px solid rgba(255, 255, 255, 0.1);
             }
             
+            .mobile-menu-btn {
+                display: block;
+                order: 2;
+            }
+            
             .logo {
-                justify-content: center;
-                text-align: center;
-                flex-direction: column;
-                gap: 10px;
+                order: 1;
             }
             
             .logo-text h1 {
@@ -468,6 +550,11 @@
             }
             
             .services-grid {
+                grid-template-columns: 1fr;
+                gap: 15px;
+            }
+            
+            .catalog-grid {
                 grid-template-columns: 1fr;
                 gap: 15px;
             }
@@ -540,16 +627,6 @@
             .advantage-card h3 {
                 font-size: 1.2rem;
             }
-            
-            /* Навигация на очень маленьких экранах */
-            nav ul {
-                gap: 8px;
-            }
-            
-            nav a {
-                padding: 8px 12px;
-                font-size: 14px;
-            }
         }
         
         /* Адаптивность для очень маленьких экранов */
@@ -573,11 +650,6 @@
             
             .section-title {
                 font-size: 1.4rem;
-            }
-            
-            nav a {
-                font-size: 13px;
-                padding: 6px 10px;
             }
         }
         
@@ -632,6 +704,11 @@
             .service-item:hover {
                 background: none;
             }
+
+            .catalog-item:hover {
+                transform: none;
+                background: none;
+            }
         }
     </style>
 </head>
@@ -641,7 +718,6 @@
         <div class="container header-container">
             <div class="logo">
                 <div class="logo-icon">
-                    <!-- Вставьте ваш логотип -->
                     <img src="dusha-logo.png" alt="Похоронный дом Душа">
                 </div>
                 <div class="logo-text">
@@ -650,11 +726,16 @@
                 </div>
             </div>
             
+            <button class="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+            
             <nav>
                 <ul>
                     <li><a href="#main">Главная</a></li>
                     <li><a href="#advantages">Преимущества</a></li>
                     <li><a href="#services">Услуги</a></li>
+                    <li><a href="#catalog">Каталог</a></li> <!-- Добавлен пункт меню -->
                     <li><a href="#contacts">Контакты</a></li>
                 </ul>
             </nav>
@@ -770,6 +851,16 @@
             </div>
         </section>
         
+        <!-- КАТАЛОГ ТОВАРОВ (динамически заполняется из JS) -->
+        <section id="catalog" class="catalog">
+            <div class="container">
+                <h2 class="section-title fade-in">Каталог ритуальных товаров</h2>
+                <div class="catalog-grid" id="catalogGrid">
+                    <!-- Карточки товаров будут вставлены через JavaScript -->
+                </div>
+            </div>
+        </section>
+        
         <div class="container divider"></div>
         
         <!-- Контакты -->
@@ -846,7 +937,6 @@
                 </div>
                 
                 <div class="social-links">
-                    <!-- Вставьте свои ссылки на соцсети -->
                     <a href="https://vk.com/dushakaluga" target="_blank" title="ВКонтакте">
                         <i class="fab fa-vk"></i>
                     </a>
@@ -863,8 +953,81 @@
     </footer>
 
     <script>
+        // ------------------------------------------------------------
+        // КАТАЛОГ ТОВАРОВ – легко редактировать, добавлять, удалять
+        // ------------------------------------------------------------
+        const products = [
+            { name: "Гроб деревянный (обивка тканью)", price: "от 8 000 ₽", icon: "fa-box" },
+            { name: "Венок похоронный", price: "от 1 200 ₽", icon: "fa-circle" },
+            { name: "Крест металлический", price: "от 2 500 ₽", icon: "fa-cross" },
+            { name: "Табличка на могилу (латунь)", price: "от 1 800 ₽", icon: "fa-clipboard" },
+            { name: "Одежда для усопшего (мужская)", price: "от 4 500 ₽", icon: "fa-user-tie" },
+            { name: "Ритуальная корзина", price: "от 2 200 ₽", icon: "fa-leaf" },
+            { name: "Памятник гранитный", price: "от 25 000 ₽", icon: "fa-cube" },
+            { name: "Ограда металлическая", price: "от 7 500 ₽", icon: "fa-grip-lines" } // добавлена новая позиция
+        ];
+
+        // Функция для отрисовки каталога
+        function renderCatalog() {
+            const grid = document.getElementById('catalogGrid');
+            if (!grid) return;
+
+            // Очищаем сетку
+            grid.innerHTML = '';
+
+            // Создаём карточки для каждого товара
+            products.forEach((product, index) => {
+                const delayClass = `delay-${(index % 3) + 1}`; // чередование задержек анимации
+
+                const card = document.createElement('div');
+                card.className = `glass catalog-item fade-in ${delayClass}`;
+                
+                // Иконка
+                const iconDiv = document.createElement('div');
+                iconDiv.className = 'catalog-icon';
+                iconDiv.innerHTML = `<i class="fas ${product.icon}"></i>`;
+                
+                // Название
+                const title = document.createElement('h3');
+                title.textContent = product.name;
+                
+                // Цена
+                const price = document.createElement('div');
+                price.className = 'catalog-price';
+                price.textContent = product.price;
+                
+                // Кнопка "Заказать" – ведёт к контактам
+                const btn = document.createElement('a');
+                btn.href = '#contacts';
+                btn.className = 'btn btn-small';
+                btn.innerHTML = '<i class="fas fa-shopping-cart"></i> Заказать';
+                btn.addEventListener('click', function(e) {
+                    // плавный скролл до контактов + закрытие мобильного меню
+                    e.preventDefault();
+                    const contacts = document.querySelector('#contacts');
+                    if (contacts) {
+                        window.scrollTo({
+                            top: contacts.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+                        if (window.innerWidth <= 768) {
+                            nav.classList.remove('active');
+                            document.body.style.overflow = 'auto';
+                        }
+                    }
+                });
+                
+                card.appendChild(iconDiv);
+                card.appendChild(title);
+                card.appendChild(price);
+                card.appendChild(btn);
+                
+                grid.appendChild(card);
+            });
+        }
+
         // Плавная прокрутка
-        document.querySelectorAll('nav a, .btn[href^="#"]').forEach(anchor => {
+        document.querySelectorAll('nav a, .btn[href^="#"]:not(.btn-small)').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 const href = this.getAttribute('href');
                 if (href.startsWith('#')) {
@@ -877,14 +1040,54 @@
                             top: targetElement.offsetTop - 80,
                             behavior: 'smooth'
                         });
+                        
+                        // Закрываем мобильное меню после клика
+                        if (window.innerWidth <= 768) {
+                            nav.classList.remove('active');
+                            document.body.style.overflow = 'auto';
+                        }
                     }
                 }
             });
         });
         
+        // Мобильное меню
+        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+        const nav = document.querySelector('nav');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            nav.classList.toggle('active');
+            
+            if (nav.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
+        // Закрытие меню при клике вне его
+        document.addEventListener('click', (e) => {
+            if (window.innerWidth <= 768 && nav.classList.contains('active')) {
+                if (!nav.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+                    nav.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            }
+        });
+        
+        // Адаптивное меню
+        window.addEventListener('resize', () => {
+            if (window.innerWidth > 768) {
+                nav.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+        });
+        
         // Анимация при загрузке
         document.addEventListener('DOMContentLoaded', () => {
-            // Добавляем классы анимации для элементов при прокрутке
+            // Рендерим каталог
+            renderCatalog();
+
             const observerOptions = {
                 threshold: 0.1
             };
@@ -900,6 +1103,11 @@
             document.querySelectorAll('.glass').forEach(el => {
                 observer.observe(el);
             });
+            
+            // Проверяем, мобильное ли устройство
+            if (window.innerWidth <= 768) {
+                nav.style.display = 'none';
+            }
         });
         
         // Улучшение для touch-устройств
